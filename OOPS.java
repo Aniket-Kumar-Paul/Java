@@ -1,54 +1,60 @@
 import java.util.*;
-import bank.Account;
 
-class Student {
-    String reg;
-    String name;
-    int age;
+// abstract class
+abstract class AnimalA { // since we won't directly make an object of Animal
+    abstract public void walk(); // all child class must override abstract method
 
-    // constructor
-    Student(String reg) {
-        System.out.println("New Student Joined!!");
-        this.reg = reg;
-    }
-
-    // copy constructor
-    Student(Student s) {
-        this.reg = s.reg;
-    }
-    
-    public void printInfo() {
-        System.out.println("Name: " + this.name + " Age: " + this.age+" Reg no.: "+this.reg);
+    AnimalA() {
+        System.out.println("New Animal Created");
     }
 }
 
-class Shape {
-    public void area() {
-        System.out.println("Display area! ");
+class Horse extends AnimalA {
+    Horse() {
+        System.out.println("Horse create");
+    }
+
+    public void walk() {
+        System.out.println("Walks on 4 legs");
     }
 }
-// Inheritance
-class Triangle extends Shape { // single level
-    public void area(int l, int h) {
-        System.out.println(1/2*l*h);
+
+class Chicken extends AnimalA {
+    public void walk() {
+        System.out.println("Walks on 2 legs");
     }
 }
-// NOTE: we use interfaces to implement multiple inheritence in java
+
+// interfaces - pure abstraction (can't have constructors, non-abstract
+// function)
+interface AnimalI {
+    // all fields in interfaces are public, static and final by default
+    int eyes = 2; // it is already public and static(same for all animals) and final(can't be
+                  // changed)
+
+    // all methods are public & abstract by default
+    void walk();
+
+    // void eat() {} -> error. since,it is a non abstract class
+}
+
+interface Herbivore {
+
+}
+
+// multiple inheritance can be implemented using interfaces
+class HorseI implements AnimalI, Herbivore { // interfaces are implemented not extended
+    public void walk() {
+        System.out.println("Walks on 4 legs");
+    }
+}
 
 public class OOPS {
-    // abstraction, encapsulation, inheritance, polymorphism
-
-    // polymorphism - function overloading (compile time)
-    //              - function overriding (run time)
-
     public static void main(String[] args) {
-        Student s1 = new Student("20BRS1116");
-        s1.name = "Aniket";
-        s1.age = 20;
-        s1.printInfo();
+        Horse h = new Horse();
+        h.walk();
 
-        // using bank package
-        Account account1 = new Account();
-        account1.name = "Aniket";
+        HorseI hI = new HorseI();
+        hI.walk();
     }
 }
